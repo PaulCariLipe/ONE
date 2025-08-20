@@ -28,19 +28,13 @@ public class CurrencyConverter {
         double amount = scanner.nextDouble();
 
         try {
-            // 1. Construir el cliente HTTP
             HttpClient client = HttpClient.newHttpClient();
 
-            // 2. Construir la solicitud
             String url = BASE_URL + API_KEY + "/latest/" + baseCurrency;
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .build();
-
-            // 3. Obtener la respuesta
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            // 4. Parsear la respuesta JSON con Gson
             JsonObject jsonResponse = JsonParser.parseString(response.body()).getAsJsonObject();
 
             if (jsonResponse.has("conversion_rates")) {
